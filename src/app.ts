@@ -9,7 +9,7 @@ connectDb();
 app.use(Express.json());
 
 app.get("/", (req, res) => {
-  res.send("HEll0");
+  res.send("HEllo");
 });
 
 app.listen(port, () => {
