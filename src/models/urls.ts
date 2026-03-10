@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
-import { object, string, number } from "zod";
 
 const urlsSchema = new mongoose.Schema({
-  id: object,
-  shortencode: string,
-  originalUrl: string,
-  clicks: number,
+  code: String,
+  originalUrl: String,
+  clicks: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export const urldb = mongoose.model("Urls", urlsSchema);
