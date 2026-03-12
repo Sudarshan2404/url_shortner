@@ -78,9 +78,9 @@ npm install
 ### 3️⃣ Create `.env` file
 
 ```
-PORT=5000
+PORT=3000
 MONGO_URI=your_mongodb_connection_string
-BASE_URL=http://localhost:5000
+BASE_URL=http://localhost:3000
 ```
 
 ### 4️⃣ Run the server
