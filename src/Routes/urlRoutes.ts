@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { shortenUrl } from "../controllers/urlcontrollers.js";
+import { shortenUrl, visiturl } from "../controllers/urlcontrollers.js";
 
 const router = Router();
 
-router.get("/shortenurl", shortenUrl);
-
+router.post("/shortenurl", shortenUrl);
+router.get("/:code", visiturl);
 export default router;

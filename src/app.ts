@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
   res.send("HEllo");
 });
 
-app.use("/api", urlroutes);
+app.use("/", urlroutes);
 
 app.listen(port, () => {
   console.log(`Server listening on: http://localhost:${port}`);

@@ -9,14 +9,14 @@ export const shortenUrl = async (req: Request, res: Response) => {
 
     const shortUrl = await createShortUrl(url);
 
-    res.status(200).json(`http://localhost:3000/${shortUrl}`);
+    res.status(200).json({ shortenUrl: `http://localhost:3000/${shortUrl}` });
   } catch (error) {
     console.log("Error Occured while shortening url: ", error);
     res.status(500).json("Internal Error Occured");
   }
 };
 
-export const visitUrl = async (req: Request, res: Response) => {
+export const visiturl = async (req: Request, res: Response) => {
   type UrlRecord = {
     code: string;
     originalUrl: string;
@@ -36,7 +36,7 @@ export const visitUrl = async (req: Request, res: Response) => {
       throw new Error("Input a valid shortened url");
     }
 
-    res.status(200).json(urlRecord.originalUrl);
+    res.status(200).redirect(urlRecord.originalUrl);
   } catch (error) {
     console.log("Error Occurred while visiting url: ", error);
     res.status(500).json("Internal Error Occurred");
