@@ -132,7 +132,7 @@ GET /:code
 Example:
 
 ```
-http://localhost:5000/abc123
+http://localhost:3000/abc123
 ```
 
 This endpoint:
