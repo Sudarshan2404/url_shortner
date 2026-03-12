@@ -92,7 +92,7 @@ npm run dev
 Server will start at:
 
 ```
-http://localhost:5000
+http://localhost:3000
 ```
 
 ---
@@ -102,14 +102,14 @@ http://localhost:5000
 ### Create Short URL
 
 ```
-POST /api/url
+POST /api/shortenurl
 ```
 
 Request body:
 
 ```json
 {
-  "originalUrl": "https://google.com"
+  "url": "https://google.com"
 }
 ```
 
@@ -199,7 +199,7 @@ Example response:
 
 **Sudarshan Kulkarni**
 
-GitHub: https://github.com/yourusername
+GitHub: https://github.com/Sudarshan2404
 X (Twitter): https://x.com/0xSudarshan
 
 ---
