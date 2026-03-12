@@ -15,3 +15,18 @@ export const createShortUrl = async (url: string) => {
     console.log("Error");
   }
 };
+
+export const customExtension = async (customName: string, url: string) => {
+  try {
+    const code = nanoid(3);
+    const cname = customName;
+    const fullcode = customName + "-" + code;
+
+    await urldb.create({
+      code: fullcode,
+      originalUrl: url,
+    });
+
+    return fullcode;
+  } catch (error) {}
+};

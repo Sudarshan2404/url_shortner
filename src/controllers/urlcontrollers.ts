@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createShortUrl } from "../Services/url.services.js";
+import { createShortUrl, customExtension } from "../Services/url.services.js";
 import { urldb } from "../models/urls.js";
 import { ZodNull } from "zod";
 
@@ -18,13 +18,14 @@ export const shortenUrl = async (req: Request, res: Response) => {
 
 export const visiturl = async (req: Request, res: Response) => {
   type UrlRecord = {
+    _id: object;
     code: string;
     originalUrl: string;
     clicks?: number | null;
   };
 
   try {
-    const code: string | string[] | undefined = req.params.code;
+    const code: string = req.params.code as string;
     if (!code) {
       throw new Error("Code is not defined");
     }
@@ -33,12 +34,30 @@ export const visiturl = async (req: Request, res: Response) => {
     });
 
     if (!urlRecord) {
-      throw new Error("Input a valid shortened url");
+      throw new Error("Input a valid shortened url or link expired");
     }
+    var clicks = urlRecord?.clicks ?? 0;
+    clicks = clicks + 1;
+
+    await urldb.updateOne({ _id: urlRecord._id }, { $set: { clicks } });
+
+    console.log(code, urlRecord?.clicks);
 
     res.status(200).redirect(urlRecord.originalUrl);
   } catch (error) {
     console.log("Error Occurred while visiting url: ", error);
     res.status(500).json("Internal Error Occurred");
+  }
+};
+
+export const shortenUrlcustom = async (req: Request, res: Response) => {
+  try {
+    const url: string = req.body.url;
+    const customName: string = req.body.customName;
+    const shortUrl = await customExtension(customName, url);
+
+    res.status(200).json({ shortenUrl: `http://localhost:3000/${shortUrl}` });
+  } catch (error) {
+    res.status(500).json("Internal server Error");
   }
 };
