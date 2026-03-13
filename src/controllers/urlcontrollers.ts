@@ -27,7 +27,7 @@ export const visiturl = async (req: Request, res: Response) => {
   try {
     const code: string = req.params.code as string;
     if (!code) {
-      throw new Error("Code is not defined");
+      return res.status(400).json("Invalid link or link expired");
     }
     const urlRecord: UrlRecord | null = await urldb.findOne({
       code: code,

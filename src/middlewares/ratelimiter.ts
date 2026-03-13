@@ -27,7 +27,7 @@ export const ratelimiter = (
     }
 
     if (requests[ip].count >= max_requests) {
-      res.status(429).json("Too Many Requests");
+      return res.status(429).json("Too Many Requests");
     }
 
     requests[ip].count++;
