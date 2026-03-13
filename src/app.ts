@@ -2,6 +2,7 @@ import Express from "express";
 import dotenv from "dotenv";
 import { connectDb } from "./config/db.js";
 import urlroutes from "./Routes/urlRoutes.js";
+import { ratelimiter } from "./middlewares/ratelimiter.js";
 
 dotenv.config();
 const app = Express();
@@ -10,7 +11,7 @@ connectDb();
 
 app.use(Express.json());
 
-app.get("/", (req, res) => {
+app.get("/", ratelimiter, (req, res) => {
   res.send("HEllo");
 });
 
