@@ -2,7 +2,7 @@ import axios from "axios";
 
 const ratelimitertest = async () => {
   try {
-    for (let i = 0; i <= 102; i++) {
+    for (let i = 1; i <= 100; i++) {
       const res = await axios.get("http://localhost:3000");
       console.log("Request", i, res.status);
     }

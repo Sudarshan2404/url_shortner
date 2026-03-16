@@ -7,6 +7,10 @@ const urlsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+  },
 });
 
 export const urldb = mongoose.model("Urls", urlsSchema);
