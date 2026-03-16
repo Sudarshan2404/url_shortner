@@ -1,6 +1,9 @@
 import type { Request, Response } from "express";
 import { usersdb } from "../models/users.js";
+import { genreatetoken } from "../Services/genreatetoken.services.js";
 import { z } from "zod";
+
+// import bcrypt and hash password, create login route
 
 const registerSchema = z.object({
   username: z.string().min(4).toLowerCase(),
@@ -50,12 +53,16 @@ export const register = async (req: Request, res: Response) => {
       Name: name,
     });
 
-    return res.status(201).json({
-      status: true,
-      user,
+    return res.status(201).cookie("token", genreatetoken(user._id), {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
   } catch (error) {
     console.log("Error Occured while registering user: ", error);
-    return res.status(500).json("Internal Error Occured");
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal Error Occured" });
   }
 };
