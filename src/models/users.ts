@@ -7,4 +7,4 @@ const userSchema = new mongoose.Schema({
   Name: String,
 });
 
-export const urldb = mongoose.model("Users", userSchema);
+export const usersdb = mongoose.model("Users", userSchema);

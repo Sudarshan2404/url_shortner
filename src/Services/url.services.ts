@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { urldb } from "../models/urls.js";
 
-export const createShortUrl = async (url: string) => {
+export const createShortUrl = async (url: string): Promise<string> => {
   try {
     const code = nanoid(6);
 
@@ -12,14 +12,17 @@ export const createShortUrl = async (url: string) => {
 
     return code;
   } catch (error) {
-    console.log("Error");
+    console.log("Error creating short url: ", error);
+    throw error;
   }
 };
 
-export const customExtension = async (customName: string, url: string) => {
+export const customExtension = async (
+  customName: string,
+  url: string
+): Promise<string> => {
   try {
     const code = nanoid(3);
-    const cname = customName;
     const fullcode = customName + "-" + code;
 
     await urldb.create({
@@ -28,5 +31,8 @@ export const customExtension = async (customName: string, url: string) => {
     });
 
     return fullcode;
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error creating custom short url: ", error);
+    throw error;
+  }
 };

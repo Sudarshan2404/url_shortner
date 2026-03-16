@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import { createShortUrl, customExtension } from "../Services/url.services.js";
 import { urldb } from "../models/urls.js";
-import { ZodNull } from "zod";
 
 export const shortenUrl = async (req: Request, res: Response) => {
   try {
@@ -34,7 +33,9 @@ export const visiturl = async (req: Request, res: Response) => {
     });
 
     if (!urlRecord) {
-      throw new Error("Input a valid shortened url or link expired");
+      return res
+        .status(400)
+        .json({ status: false, message: "Invalid Shortened url" });
     }
     var clicks = urlRecord?.clicks ?? 0;
     clicks = clicks + 1;
@@ -43,10 +44,13 @@ export const visiturl = async (req: Request, res: Response) => {
 
     console.log(code, urlRecord?.clicks);
 
-    res.status(200).redirect(urlRecord.originalUrl);
+    res
+      .status(200)
+      .json({ status: true, message: "Success" })
+      .redirect(urlRecord.originalUrl);
   } catch (error) {
     console.log("Error Occurred while visiting url: ", error);
-    res.status(500).json("Internal Error Occurred");
+    res.status(500).json({ status: false, message: "Internal server Error" });
   }
 };
 
@@ -56,8 +60,10 @@ export const shortenUrlcustom = async (req: Request, res: Response) => {
     const customName: string = req.body.customName;
     const shortUrl = await customExtension(customName, url);
 
-    res.status(200).json({ shortenUrl: `http://localhost:3000/${shortUrl}` });
+    res
+      .status(200)
+      .json({ status: true, shortenUrl: `http://localhost:3000/${shortUrl}` });
   } catch (error) {
-    res.status(500).json("Internal server Error");
+    res.status(500).json({ status: false, message: "Internal server Error" });
   }
 };
