@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { usersdb } from "../models/users.js";
 import { genreatetoken } from "../Services/genreatetoken.services.js";
 import { z } from "zod";
+import bcrypt from "bcrypt";
 
 // import bcrypt and hash password, create login route
 
@@ -11,6 +12,8 @@ const registerSchema = z.object({
   password: z.string().min(6),
   name: z.string().min(2),
 });
+
+const saltRounds: number = process.env.SALT_ROUNDS as unknown as number;
 
 const loginSchema = z.object({
   username: z.string().min(4).toLowerCase(),
@@ -46,10 +49,12 @@ export const register = async (req: Request, res: Response) => {
         message: "User Already exist try a different email",
       });
     }
+
+    const hashedPass = await bcrypt.hash(password, saltRounds);
     const user = await usersdb.create({
       username,
       email,
-      password,
+      password: hashedPass,
       Name: name,
     });
 
