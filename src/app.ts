@@ -2,6 +2,7 @@ import Express from "express";
 import dotenv from "dotenv";
 import { connectDb } from "./config/db.js";
 import urlroutes from "./Routes/urlRoutes.js";
+import authroutes from "./Routes/authRoutes.js";
 import { ratelimiter } from "./middlewares/ratelimiter.js";
 
 dotenv.config();
@@ -15,7 +16,8 @@ app.get("/", ratelimiter, (req, res) => {
   res.send("HEllo");
 });
 
-app.use("/", urlroutes);
+app.use("/api", urlroutes);
+app.use("/api/auth", authroutes);
 
 app.listen(port, () => {
   console.log(`Server listening on: http://localhost:${port}`);

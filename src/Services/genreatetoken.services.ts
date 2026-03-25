@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config/jwt.js";
 
 export const genreatetoken = (userId: object) => {
+  const JWT_SECRET = process.env.JWT_SECRET;
   if (!userId) {
     return "Cannot genreate a token";
   }
+  // @ts-ignore
   const token = jwt.sign({ id: userId }, JWT_SECRET, {
     expiresIn: "7d",
   });
