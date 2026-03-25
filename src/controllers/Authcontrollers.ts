@@ -71,7 +71,7 @@ export const register = async (req: Request, res: Response) => {
         sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
-      .json({ success: true });
+      .json({ success: true, message: "User Created Successfully" });
   } catch (error) {
     console.log("Error Occured while registering user: ", error);
     return res
