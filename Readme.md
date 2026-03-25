@@ -120,10 +120,12 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 
 **GET Create a .env file:**
 
-- PORT=3000
-- MONGO_URI=your_mongodb_connection
-- JWT_SECRET=your_secret_key
-- DEVELOPMENT=Development
+```json
+PORT=3000
+MONGO_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
+DEVELOPMENT=Development
+```
 
 - 🧪 Future Improvements
 - 📊 Analytics dashboard
