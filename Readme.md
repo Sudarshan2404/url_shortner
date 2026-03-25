@@ -134,7 +134,7 @@ DEVELOPMENT=Development
 - 🌍 Custom domain support
 - 🔑 OAuth login (Google/GitHub)
 
-```json
+```bash
 npm install
 npm run dev
 ```
