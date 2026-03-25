@@ -67,7 +67,7 @@ export const register = async (req: Request, res: Response) => {
       .status(201)
       .cookie("token", token, {
         httpOnly: true,
-        secure: false,
+        secure: process.env.DEVLOPMENT === "Production",
         sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
@@ -77,5 +77,54 @@ export const register = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ status: false, message: "Internal Error Occured" });
+  }
+};
+
+export const login = async (req: Request, res: Response) => {
+  type user = {
+    _id: object;
+    username: string;
+    password: string;
+  };
+  try {
+    const parse = loginSchema.safeParse(req.body);
+    if (!parse.success) {
+      return res.status(400).json({ status: false, message: "Invalid Inputs" });
+    }
+
+    const { username, password } = parse.data;
+
+    const userExist: user | null = await usersdb.findOne({ username });
+
+    if (!userExist) {
+      return res
+        .status(401)
+        .json({ status: false, message: "Invalid Username" });
+    }
+
+    const passCompare = bcrypt.compare(password, userExist.password);
+    if (!passCompare) {
+      return res
+        .status(401)
+        .json({ status: false, message: "Invalid Password" });
+    }
+
+    const token = genreatetoken(userExist._id);
+    if (!token) {
+      return new Error("Cannot create a token");
+    }
+    res
+      .status(200)
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .json({ status: true, message: "Logged in Successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal Server Error" });
   }
 };
