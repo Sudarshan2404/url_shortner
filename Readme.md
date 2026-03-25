@@ -139,4 +139,4 @@ npm run dev
 
 ### 👨‍💻 Author
 
-- Sudarshan Kulkarni
+**Sudarshan Kulkarni**
