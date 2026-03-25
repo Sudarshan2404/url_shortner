@@ -1,207 +1,147 @@
-# 🔗 URL Shortener
+🔗 URL Shortener API with Authentication
 
-A simple and fast **URL shortening service** built with **Node.js, Express, TypeScript, and MongoDB**.
+A secure and scalable URL shortener backend built with Express, TypeScript, MongoDB, and JWT authentication.
+Includes features like user registration, login, protected routes, rate limiting, and custom short URLs.
 
-This application converts long URLs into short, shareable links and redirects users to the original URL while tracking how many times each link has been visited.
-
----
-
-## 🚀 Features
-
-- Shorten long URLs into compact links
-- Redirect users to the original URL
-- Track number of visits (click analytics)
-- RESTful API design
-- Built with TypeScript for type safety
-- MongoDB database integration
-
----
-
-## 🛠 Tech Stack
-
-**Backend**
-
-- Node.js
-- Express.js
-- TypeScript
-
-**Database**
-
-- MongoDB
-- Mongoose
-
-**Utilities**
-
-- dotenv
-- nodemon / ts-node
-
----
-
-## 📂 Project Structure
-
-```
-src
+🚀 Features
+🔐 User Authentication (Register & Login)
+🍪 JWT stored in HTTP-only cookies
+🔗 URL Shortening (auto-generated codes)
+✏️ Custom Short URLs
+📈 Click Tracking
+🚫 Rate Limiting (anti-abuse)
+🛡️ Protected Routes with Middleware
+⚡ Fast redirection using HTTP 302
+🛠️ Tech Stack
+Backend: Express.js (TypeScript)
+Database: MongoDB (via Mongoose)
+Validation: Zod
+Auth: JWT + Cookies
+Security: bcrypt (password hashing)
+📂 Project Structure
+├── controllers/
+│ ├── Authcontrollers.ts
+│ ├── urlcontrollers.ts
 │
-├── controllers
-│   └── urlcontrollers.ts
+├── models/
+│ ├── users.ts
+│ ├── urls.ts
 │
-├── models
-│   └── urlmodel.ts
+├── routes/
+│ ├── authRoutes.ts
+│ ├── urlRoutes.ts
 │
-├── routes
-│   └── urlroutes.ts
+├── services/
+│ ├── genreatetoken.services.ts
+│ ├── url.services.ts
 │
-├── config
-│   └── db.ts
+├── middlewares/
+│ ├── authMiddleware.ts
+│ ├── ratelimiter.ts
 │
-├── app.ts
-└── server.ts
-```
+├── config/
+│ ├── db.ts
+│
+├── app.ts / server.ts
+🔑 API Endpoints
+🧑‍💻 Auth Routes
+Register User
+POST /api/auth/register
 
----
+Body:
 
-## ⚙️ Installation
-
-### 1️⃣ Clone the repository
-
-```
-git clone https://github.com/yourusername/url-shortener.git
-cd url-shortener
-```
-
-### 2️⃣ Install dependencies
-
-```
-npm install
-```
-
-### 3️⃣ Create `.env` file
-
-```
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
-BASE_URL=http://localhost:3000
-```
-
-### 4️⃣ Run the server
-
-```
-npm run dev
-```
-
-Server will start at:
-
-```
-http://localhost:3000
-```
-
----
-
-## 📡 API Endpoints
-
-### Create Short URL
-
-```
-POST /api/shortenurl
-```
-
-Request body:
-
-```json
 {
-  "url": "https://google.com"
+"username": "john123",
+"email": "john@example.com",
+"password": "password123",
+"name": "John Doe"
 }
-```
+Login User
+POST /api/auth/login
 
-Response:
+Body:
 
-```json
 {
-  "shortUrl": "http://localhost:3000/abc123"
+"username": "john123",
+"password": "password123"
 }
-```
+🔗 URL Routes
 
----
+⚠️ Requires authentication (cookie-based JWT)
 
-### Redirect to Original URL
+Shorten URL
+POST /shortenurl
 
-```
+Body:
+
+{
+"url": "https://example.com"
+}
+Custom Short URL
+POST /cmshortenurl
+
+Body:
+
+{
+"url": "https://example.com",
+"customName": "my-link"
+}
+Visit Short URL
 GET /:code
-```
 
-Example:
+➡️ Redirects to original URL
+➡️ Increments click count
 
-```
-http://localhost:3000/abc123
-```
+🔐 Authentication Flow
+User logs in / registers
+Server generates JWT
+Token stored in HTTP-only cookie
+Protected routes verify token via middleware
+⚙️ Environment Variables
 
-This endpoint:
+Create a .env file:
 
-- Finds the URL in the database
-- Increments the click counter
-- Redirects the user to the original URL
+PORT=3000
+MONGO_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
+DEVLOPMENT=Development
+🧠 Important Notes / Improvements
+⚠️ Bugs to Fix
+❌ bcrypt.compare is missing await:
+const passCompare = await bcrypt.compare(password, userExist.password);
+❌ Zod email validation should be:
+email: z.string().email().toLowerCase()
+❌ Typo in env variable:
+DEVLOPMENT → DEVELOPMENT
+❌ Cookie secure flag:
+secure: process.env.DEVELOPMENT === "Production"
+🧪 Future Enhancements
+📊 Analytics dashboard (clicks, geo, devices)
+⏳ Expiring links
+📁 User dashboard for managing URLs
+🌍 Deploy with custom domain
+📡 WebSocket-based real-time click tracking
+🔑 OAuth login (Google, GitHub)
+🏃‍♂️ Running Locally
 
----
+# Install dependencies
 
-### Get URL Analytics
+npm install
 
-```
-GET /api/url/:code
-```
+# Run dev server
 
-Example response:
+npm run dev
+💡 Inspiration
 
-```json
-{
-  "originalUrl": "https://google.com",
-  "clicks": 12
-}
-```
+This project is a solid backend system demonstrating:
 
----
+Auth flows
+Middleware design
+Scalable API patterns
 
-## 📊 Example Database Record
+Perfect for portfolios and real-world backend learning.
 
-```json
-{
-  "_id": "65f123abc...",
-  "code": "abc123",
-  "originalUrl": "https://google.com",
-  "clicks": 5,
-  "createdAt": "2026-03-12T10:00:00Z"
-}
-```
+👨‍💻 Author
 
----
-
-## 🔧 Future Improvements
-
-- Custom short URLs
-- URL expiration support
-- QR code generation
-- Analytics dashboard
-- Rate limiting
-- Redis caching for faster redirects
-
----
-
-## 📚 What I Learned
-
-- Designing REST APIs with Express
-- Working with MongoDB and Mongoose
-- Implementing redirect logic
-- Handling click analytics efficiently
-- Structuring scalable backend projects
-
----
-
-## 👨‍💻 Author
-
-**Sudarshan Kulkarni**
-
-GitHub: https://github.com/Sudarshan2404
-X (Twitter): https://x.com/0xSudarshan
-
----
-
-⭐ If you found this project useful, consider giving the repository a star!
+Sudarshan Kulkarni
+Building scalable systems, dev tools & startup ideas 🚀
