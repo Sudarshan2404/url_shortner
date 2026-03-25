@@ -37,17 +37,12 @@ export const visiturl = async (req: Request, res: Response) => {
         .status(400)
         .json({ status: false, message: "Invalid Shortened url" });
     }
-    var clicks = urlRecord?.clicks ?? 0;
-    clicks = clicks + 1;
 
-    await urldb.updateOne({ _id: urlRecord._id }, { $set: { clicks } });
+    await urldb.updateOne({ _id: urlRecord._id }, { $inc: { clicks: 1 } });
 
-    console.log(code, urlRecord?.clicks);
+    // console.log(urlRecord.code, urlRecord?.clicks);
 
-    res
-      .status(200)
-      .json({ status: true, message: "Success" })
-      .redirect(urlRecord.originalUrl);
+    return res.status(302).redirect(urlRecord.originalUrl);
   } catch (error) {
     console.log("Error Occurred while visiting url: ", error);
     res.status(500).json({ status: false, message: "Internal server Error" });
