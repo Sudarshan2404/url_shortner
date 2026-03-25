@@ -1,24 +1,34 @@
-🔗 URL Shortener API with Authentication
+# 🔗 URL Shortener API with Authentication
 
-A secure and scalable URL shortener backend built with Express, TypeScript, MongoDB, and JWT authentication.
-Includes features like user registration, login, protected routes, rate limiting, and custom short URLs.
+A secure and scalable URL shortener backend built with **Express, TypeScript, MongoDB**, and **JWT authentication**.
 
-🚀 Features
-🔐 User Authentication (Register & Login)
-🍪 JWT stored in HTTP-only cookies
-🔗 URL Shortening (auto-generated codes)
-✏️ Custom Short URLs
-📈 Click Tracking
-🚫 Rate Limiting (anti-abuse)
-🛡️ Protected Routes with Middleware
-⚡ Fast redirection using HTTP 302
-🛠️ Tech Stack
-Backend: Express.js (TypeScript)
-Database: MongoDB (via Mongoose)
-Validation: Zod
-Auth: JWT + Cookies
-Security: bcrypt (password hashing)
-📂 Project Structure
+---
+
+## 🚀 Features
+
+- 🔐 User Authentication (Register & Login)
+- 🍪 JWT stored in HTTP-only cookies
+- 🔗 URL Shortening (auto-generated codes)
+- ✏️ Custom Short URLs
+- 📈 Click Tracking
+- 🚫 Rate Limiting
+- 🛡️ Protected Routes
+- ⚡ Fast redirection (HTTP 302)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Express.js (TypeScript)
+- **Database:** MongoDB (Mongoose)
+- **Validation:** Zod
+- **Authentication:** JWT + Cookies
+- **Security:** bcrypt
+
+---
+
+## 📂 Project Structure
+
 ├── controllers/
 │ ├── Authcontrollers.ts
 │ ├── urlcontrollers.ts
@@ -42,106 +52,64 @@ Security: bcrypt (password hashing)
 ├── config/
 │ ├── db.ts
 │
-├── app.ts / server.ts
-🔑 API Endpoints
-🧑‍💻 Auth Routes
-Register User
-POST /api/auth/register
+├── app.ts
 
-Body:
+---
 
+## 🔑 API Endpoints
+
+### 🧑‍💻 Auth Routes
+
+#### Register User
+
+**POST api/auth/register**
+
+```json
 {
-"username": "john123",
-"email": "john@example.com",
-"password": "password123",
-"name": "John Doe"
+  "username": "john123",
+  "email": "john@example.com",
+  "password": "password123",
+  "name": "John Doe"
 }
-Login User
-POST /api/auth/login
+```
 
-Body:
+#### Register User
 
+**POST api/auth/register**
+
+```json
 {
-"username": "john123",
-"password": "password123"
+  "username": "john123",
+  "email": "john@example.com",
+  "password": "password123",
+  "name": "John Doe"
 }
-🔗 URL Routes
+```
 
-⚠️ Requires authentication (cookie-based JWT)
+#### Shorten Url
 
-Shorten URL
-POST /shortenurl
+**POST /shortenurl**
 
-Body:
-
+```json
 {
-"url": "https://example.com"
+  "url": "https://www.google.com"
 }
-Custom Short URL
-POST /cmshortenurl
+```
 
-Body:
+#### Shorten Url with custom name
 
+**GET /cmshortenurl**
+
+```json
 {
-"url": "https://example.com",
-"customName": "my-link"
+  "CustomName": "ShortenUrl",
+  "url": "https://www.google.com"
 }
-Visit Short URL
-GET /:code
+```
 
-➡️ Redirects to original URL
-➡️ Increments click count
+#### Visit Shortened Url
 
-🔐 Authentication Flow
-User logs in / registers
-Server generates JWT
-Token stored in HTTP-only cookie
-Protected routes verify token via middleware
-⚙️ Environment Variables
+**GET /:code**
 
-Create a .env file:
-
-PORT=3000
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-DEVLOPMENT=Development
-🧠 Important Notes / Improvements
-⚠️ Bugs to Fix
-❌ bcrypt.compare is missing await:
-const passCompare = await bcrypt.compare(password, userExist.password);
-❌ Zod email validation should be:
-email: z.string().email().toLowerCase()
-❌ Typo in env variable:
-DEVLOPMENT → DEVELOPMENT
-❌ Cookie secure flag:
-secure: process.env.DEVELOPMENT === "Production"
-🧪 Future Enhancements
-📊 Analytics dashboard (clicks, geo, devices)
-⏳ Expiring links
-📁 User dashboard for managing URLs
-🌍 Deploy with custom domain
-📡 WebSocket-based real-time click tracking
-🔑 OAuth login (Google, GitHub)
-🏃‍♂️ Running Locally
-
-# Install dependencies
-
-npm install
-
-# Run dev server
-
-npm run dev
-💡 Inspiration
-
-This project is a solid backend system demonstrating:
-
-Auth flows
-Middleware design
-Scalable API patterns
-
-Perfect for portfolios and real-world backend learning.
-
-👨‍💻 Author
-
-Sudarshan Kulkarni
-Building scalable systems, dev tools & startup ideas 🚀
+- Redirects to original URL
+- Increments click count

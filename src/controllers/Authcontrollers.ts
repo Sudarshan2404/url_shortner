@@ -102,7 +102,7 @@ export const login = async (req: Request, res: Response) => {
         .json({ status: false, message: "Invalid Username" });
     }
 
-    const passCompare = bcrypt.compare(password, userExist.password);
+    const passCompare = await bcrypt.compare(password, userExist.password);
     if (!passCompare) {
       return res
         .status(401)
