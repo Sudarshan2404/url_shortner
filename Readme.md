@@ -29,30 +29,30 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 
 ## 📂 Project Structure
 
-├── controllers/
-│ ├── Authcontrollers.ts
-│ ├── urlcontrollers.ts
-│
-├── models/
-│ ├── users.ts
-│ ├── urls.ts
-│
-├── routes/
-│ ├── authRoutes.ts
-│ ├── urlRoutes.ts
-│
-├── services/
-│ ├── genreatetoken.services.ts
-│ ├── url.services.ts
-│
-├── middlewares/
-│ ├── authMiddleware.ts
-│ ├── ratelimiter.ts
-│
-├── config/
-│ ├── db.ts
-│
-├── app.ts
+- ├── controllers/
+- │ ├── Authcontrollers.ts
+- │ ├── urlcontrollers.ts
+- │
+- ├── models/
+- │ ├── users.ts
+- │ ├── urls.ts
+- │
+- ├── routes/
+- │ ├── authRoutes.ts
+- │ ├── urlRoutes.ts
+- │
+- ├── services/
+- │ ├── genreatetoken.services.ts
+- │ ├── url.services.ts
+- │
+- ├── middlewares/
+- │ ├── authMiddleware.ts
+- │ ├── ratelimiter.ts
+- │
+- ├── config/
+- │ ├── db.ts
+- │
+- ├── app.ts
 
 ---
 
@@ -113,3 +113,30 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 
 - Redirects to original URL
 - Increments click count
+
+### ⚙️ Environment Variables
+
+---
+
+**GET Create a .env file:**
+
+- PORT=3000
+- MONGO_URI=your_mongodb_connection
+- JWT_SECRET=your_secret_key
+- DEVELOPMENT=Development
+
+- 🧪 Future Improvements
+- 📊 Analytics dashboard
+- ⏳ Expiring links
+- 📁 User dashboard
+- 🌍 Custom domain support
+- 🔑 OAuth login (Google/GitHub)
+
+```json
+npm install
+npm run dev
+```
+
+### 👨‍💻 Author
+
+- Sudarshan Kulkarni
