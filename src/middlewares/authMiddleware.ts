@@ -21,7 +21,7 @@ export const authMiddleware = (
 
     if (!verify) {
       return res
-        .status(403)
+        .status(401)
         .json({ status: false, message: "Session Expired Login Again" });
     }
     next();

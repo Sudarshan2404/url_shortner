@@ -29,30 +29,30 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 
 ## 📂 Project Structure
 
-- ├── controllers/
-- │ ├── Authcontrollers.ts
-- │ ├── urlcontrollers.ts
-- │
-- ├── models/
-- │ ├── users.ts
-- │ ├── urls.ts
-- │
-- ├── routes/
-- │ ├── authRoutes.ts
-- │ ├── urlRoutes.ts
-- │
-- ├── services/
-- │ ├── genreatetoken.services.ts
-- │ ├── url.services.ts
-- │
-- ├── middlewares/
-- │ ├── authMiddleware.ts
-- │ ├── ratelimiter.ts
-- │
-- ├── config/
-- │ ├── db.ts
-- │
-- ├── app.ts
+├── controllers/
+│ ├── Authcontrollers.ts
+│ ├── urlcontrollers.ts
+│
+├── models/
+│ ├── users.ts
+│ ├── urls.ts
+│
+├── routes/
+│ ├── authRoutes.ts
+│ ├── urlRoutes.ts
+│
+├── services/
+│ ├── genreatetoken.services.ts
+│ ├── url.services.ts
+│
+├── middlewares/
+│ ─ authMiddleware.ts
+│ ├── ratelimiter.ts
+│
+├── config/
+│ ├── db.ts
+│
+├── app.ts
 
 ---
 
