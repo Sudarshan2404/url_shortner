@@ -98,7 +98,7 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 
 #### Shorten Url with custom name
 
-**GET /cmshortenurl**
+**GET /cmshortenurl (Authentication Required)**
 
 ```json
 {
