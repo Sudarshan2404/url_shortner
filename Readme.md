@@ -29,7 +29,7 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 
 ## 📂 Project Structure
 
-````
+```
 ├── controllers/
 │ ├── Authcontrollers.ts
 │ ├── urlcontrollers.ts
@@ -56,6 +56,7 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
 ├── app.ts
 
 ```
+
 ---
 
 ## 🔑 API Endpoints
@@ -73,7 +74,7 @@ A secure and scalable URL shortener backend built with **Express, TypeScript, Mo
   "password": "password123",
   "name": "John Doe"
 }
-````
+```
 
 #### Register User
 
